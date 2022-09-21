@@ -1,6 +1,16 @@
-const SinglePage = () => {
+const SinglePage = ({
+    id,
+    poster,
+    title,
+    date,
+    media_type,
+    vote_average
+}) => {
     return(
-        <div>Hello World</div>
+        <div>
+           
+        
+        </div>
     )
 }
 
