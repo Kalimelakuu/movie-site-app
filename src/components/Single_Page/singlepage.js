@@ -1,3 +1,4 @@
+import { Badge } from '@mui/material'
 import {img_300, unavailable} from'../../config/config'
 import './singlepage.css'
 const SinglePage = ({
@@ -10,6 +11,8 @@ const SinglePage = ({
 }) => {
     return(
         <div className='media'>
+        <Badge badgeContent={vote_average} 
+                color={vote_average > 6 ? "primary":"secondary"} />
         <img className='poster' alt={title} src={poster ? `${img_300}/${poster}` : unavailable}/>
         <b className='title'>{title}</b>
         <span className='subTitle'>
