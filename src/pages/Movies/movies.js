@@ -2,6 +2,8 @@ import axios from 'axios'
 import { useEffect, useState } from "react"
 import SinglePage from '../../components/Single_Page/singlepage';
 import CustomPagination from '../../components/Pagination/customPagination';
+import Genres from '../../components/Generes';
+import useGenres from '../../hooks/useGenre';
 
 const Movies = () => {
 
@@ -10,25 +12,28 @@ const Movies = () => {
     const [numOfPages, setNumOfPages] = useState();
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [genres, setGenres] = useState([])
+    const genreforURL=useGenres(selectedGenres)
+
     useEffect(() =>async() =>{
-        const {data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`)
+        const {data } = await axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreforURL}`)
         setContent(data.results)
         setNumOfPages(data.total_pages)
         console.log(data)
 
-    },[page, numOfPages])
+    },[page, genreforURL])
 
     return (
         <div>
            <span  className="pageTitle">Movies</span>
-        //    <Geners 
-        //      type='movie'
-        //      selectedGenres ={selectedGenres}
-        //      setSelectedGenres ={setSelectedGenres}
-        //      genres={genres}
-        //      setGenres = {setGenres}
-        //      setPage={setPage}
-        //    />
+           <Genres 
+             
+             type='movie'
+             selectedGenres ={selectedGenres}
+             setSelectedGenres ={setSelectedGenres}
+             genres={genres}
+             setGenres = {setGenres}
+             setPage={setPage}
+           />
            <div className='trending'>
               {
                 content && content.map((c) => (
